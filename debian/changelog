@@ -1,3 +1,11 @@
+fuzzel (1.12.0+ds-1parrot3) echo; urgency=medium
+
+  * Always search /usr/share/xdg after XDG configuration directories,
+    including under Cyberpunk sessions that set
+    XDG_CONFIG_DIRS=/etc/xdg.
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Tue, 24 Nov 2026 12:36:55 +0100
+
 fuzzel (1.12.0+ds-1parrot2) echo; urgency=medium
 
   * Ship the Parrot launcher configuration as the packaged fallback
