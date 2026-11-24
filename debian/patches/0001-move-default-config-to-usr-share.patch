@@ -1,0 +1,44 @@
+Index: fuzzel/config.c
+===================================================================
+--- fuzzel.orig/config.c
++++ fuzzel/config.c
+@@ -205,7 +205,7 @@ open_config(void)
+ 
+     xdg_config_dirs_copy = xdg_config_dirs != NULL && xdg_config_dirs[0] != '\0'
+         ? xstrdup(xdg_config_dirs)
+-        : xstrdup("/etc/xdg");
++        : xstrdup("/etc/xdg:/usr/share/xdg");
+ 
+     if (xdg_config_dirs_copy == NULL || xdg_config_dirs_copy[0] == '\0')
+         goto done;
+Index: fuzzel/doc/fuzzel.1.scd
+===================================================================
+--- fuzzel.orig/doc/fuzzel.1.scd
++++ fuzzel/doc/fuzzel.1.scd
+@@ -442,10 +442,11 @@ in this order:
+ 	- *XDG_CONFIG_HOME/fuzzel/fuzzel.ini* (defaulting to
+ 	  *~/.config/fuzzel/fuzzel.ini* if unset)
+ 	- *XDG_CONFIG_DIRS/fuzzel/fuzzel.ini* (defaulting to
+-	  */etc/xdg/fuzzel/fuzzel.ini* if unset)
++	  */etc/xdg/fuzzel/fuzzel.ini*, then
++	  */usr/share/xdg/fuzzel/fuzzel.ini*, if unset)
+ 
+ An example configuration file containing all options with their default value
+-commented out will usually be installed to */etc/xdg/fuzzel/fuzzel.ini*.
++commented out will usually be installed to */usr/share/xdg/fuzzel/fuzzel.ini*.
+ 
+ For more information, see *fuzzel.ini*(5).
+ 
+Index: fuzzel/meson.build
+===================================================================
+--- fuzzel.orig/meson.build
++++ fuzzel/meson.build
+@@ -197,7 +197,7 @@ executable(
+ 
+ install_data(
+   'fuzzel.ini',
+-  install_dir: join_paths(get_option('sysconfdir'), 'xdg', 'fuzzel'))
++  install_dir: join_paths(get_option('datadir'), 'xdg', 'fuzzel'))
+ install_data(
+   'LICENSE', 'README.md', 'CHANGELOG.md',
+   install_dir: join_paths(get_option('datadir'), 'doc', 'fuzzel'))
